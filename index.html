@@ -354,7 +354,7 @@
                     <div class="old-price">USD 48,99</div>
                     <div class="new-price">USD 12,99</div>
 
-                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="cta-button" onclick="fbq('track', 'Purchase');">
+                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="cta-button" onclick="fbq('track', 'InitiateCheckout');">
                         SÍ, QUIERO ESTE RECETARIO PARA MÍ
                     </a>
 
@@ -551,7 +551,7 @@
                 <div class="final-cta-content">
                     <h3>¿Estás listo para transformar tu alimentación HOY?</h3>
                     <p>Miles de personas ya están disfrutando de estos resultados. <strong>No te quedes atrás.</strong></p>
-                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="final-cta-button" onclick="fbq('track', 'Purchase');">
+                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="final-cta-button" onclick="fbq('track', 'InitiateCheckout');">
                         SÍ, QUIERO TRANSFORMAR MI ALIMENTACIÓN AHORA
                     </a>
                     <div class="urgency-reminder">
@@ -605,8 +605,6 @@
         
         // Hacer que el banner sea clickeable para ir al CTA
         document.getElementById('urgencyBanner').addEventListener('click', function() {
-            // Trackear el clic en el banner de urgencia
-            fbq('track', 'Lead');
             // Scroll suave al primer botón CTA
             const ctaButton = document.querySelector('.hero-cta-button');
             if (ctaButton) {
