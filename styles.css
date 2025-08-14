@@ -110,7 +110,7 @@ body {
 }
 
 .logo img {
-    max-width: 150px;
+    max-width: 120px;
     height: auto;
 }
 
@@ -1351,6 +1351,10 @@ body {
         font-size: 1rem;
     }
 
+    .logo img {
+        max-width: 100px;
+    }
+
     .hero-offer-text {
         font-size: 20px;
     }
@@ -1955,6 +1959,10 @@ body {
     /* Estilos adicionales para elementos nuevos */
     .hero-offer-text {
         font-size: 18px;
+    }
+
+    .logo img {
+        max-width: 80px;
     }
 
     .hero-cta-button {
