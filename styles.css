@@ -514,6 +514,12 @@ body {
     margin-bottom: 40px;
 }
 
+.testimonials-highlight {
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    font-weight: 800;
+}
+
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
