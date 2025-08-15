@@ -25,11 +25,20 @@
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=1237492584552949&ev=PageView&noscript=1"
     /></noscript>
+
+    <!-- Google Analytics 4 (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
     <!-- End Meta Pixel Code -->
 </head>
 <body>
     <!-- Banner de Urgencia Fijo -->
-    <div class="urgency-banner" id="urgencyBanner">
+    <div class="urgency-banner" id="urgencyBanner" onclick="fbq('trackCustom', 'UrgencyBannerClick', {button_location: 'urgency_banner', button_text: 'urgency_banner'}); gtag('event', 'click', {event_category: 'Urgency', event_label: 'Banner Click', value: 1}); document.querySelector('.hero-cta-button').scrollIntoView({behavior: 'smooth'});">
         <div class="urgency-content">
             <span class="fire-emoji">🔥</span>
             <span class="urgency-message">¡OFERTA ESPECIAL TERMINA EN:</span>
@@ -65,7 +74,7 @@
             <p class="hero-offer-text">DE USD 48,99 A SOLO USD 12,99!!! (75% de DESCUENTO)</p>
             
             <div class="hero-cta-container">
-                <a href="https://go.hotmart.com/K101351545N?ap=e781" class="hero-cta-button" onclick="fbq('track', 'InitiateCheckout');">
+                <a href="https://go.hotmart.com/K101351545N?ap=a36d" class="hero-cta-button" onclick="fbq('track', 'InitiateCheckout'); fbq('trackCustom', 'HeroButtonClick', {button_location: 'hero_section', button_text: 'hero_cta'}); gtag('event', 'click', {event_category: 'CTA', event_label: 'Hero Button', value: 1});">
                     SÍ, QUIERO ESTE RECETARIO PARA MÍ
                 </a>
                 <p class="limited-text">RECETARIOS LIMITADOS</p>
@@ -354,7 +363,7 @@
                     <div class="old-price">USD 48,99</div>
                     <div class="new-price">USD 12,99</div>
 
-                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="cta-button" onclick="fbq('track', 'InitiateCheckout');">
+                    <a href="https://go.hotmart.com/K101351545N?ap=a36d" class="cta-button" onclick="fbq('track', 'InitiateCheckout'); fbq('trackCustom', 'MainCTAButtonClick', {button_location: 'main_cta_section', button_text: 'main_cta'}); gtag('event', 'click', {event_category: 'CTA', event_label: 'Main CTA Button', value: 1});">
                         SÍ, QUIERO ESTE RECETARIO PARA MÍ
                     </a>
 
@@ -551,7 +560,7 @@
                 <div class="final-cta-content">
                     <h3>¿Estás listo para transformar tu alimentación HOY?</h3>
                     <p>Miles de personas ya están disfrutando de estos resultados. <strong>No te quedes atrás.</strong></p>
-                    <a href="https://go.hotmart.com/K101351545N?ap=e781" class="final-cta-button" onclick="fbq('track', 'InitiateCheckout');">
+                    <a href="https://go.hotmart.com/K101351545N?ap=a36d" class="final-cta-button" onclick="fbq('track', 'InitiateCheckout'); fbq('trackCustom', 'FinalCTAButtonClick', {button_location: 'final_cta_section', button_text: 'final_cta'}); gtag('event', 'click', {event_category: 'CTA', event_label: 'Final CTA Button', value: 1});">
                         SÍ, QUIERO TRANSFORMAR MI ALIMENTACIÓN AHORA
                     </a>
                     <div class="urgency-reminder">
@@ -611,6 +620,47 @@
                 ctaButton.scrollIntoView({ behavior: 'smooth' });
             }
         });
+
+        // Sistema de tracking de clicks interno
+        function trackButtonClick(buttonName) {
+            const clickData = JSON.parse(localStorage.getItem('buttonClicks') || '{}');
+            clickData[buttonName] = (clickData[buttonName] || 0) + 1;
+            clickData[buttonName + '_lastClick'] = new Date().toISOString();
+            localStorage.setItem('buttonClicks', JSON.stringify(clickData));
+            
+            // Enviar a servidor si tienes endpoint (opcional)
+            // fetch('/track-click', {
+            //     method: 'POST',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body: JSON.stringify({button: buttonName, timestamp: new Date().toISOString()})
+            // });
+        }
+
+        // Función para ver estadísticas (puedes usar en consola del navegador)
+        function getClickStats() {
+            const clickData = JSON.parse(localStorage.getItem('buttonClicks') || '{}');
+            console.table(clickData);
+            return clickData;
+        }
+
+        // Agregar tracking a todos los botones CTA
+        document.querySelector('.hero-cta-button').addEventListener('click', function() {
+            trackButtonClick('hero_button');
+        });
+        
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            trackButtonClick('main_cta_button');
+        });
+        
+        document.querySelector('.final-cta-button').addEventListener('click', function() {
+            trackButtonClick('final_cta_button');
+        });
+        
+        document.getElementById('urgencyBanner').addEventListener('click', function() {
+            trackButtonClick('urgency_banner');
+        });
+
+        // Para ver estadísticas en la consola, escribe: getClickStats()
     </script>
 
 </body>
